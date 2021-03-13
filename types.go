@@ -1,5 +1,11 @@
 package types
 
+// CustomerInitiation s
+type CustomerInitiation struct {
+	Initiation Initiation
+	Customer   CustomerReference
+}
+
 // Initiation s
 type Initiation struct {
 	GroupHeader         GroupHeader
