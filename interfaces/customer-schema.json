@@ -1,0 +1,82 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "https://github.com/alanwade2001/spa/customer.schema.json",
+    "title": "Customer",
+    "description": "SPA Customer",
+    "type": "object",
+    "properties": {
+        "CustomerId": {
+            "description": "The unique identifier for a customer",
+            "type": "string"
+        },
+        "CustomerName": {
+            "description": "The name of the customer",
+            "type": "string"
+        },
+        "InitiatingParties": {
+            "description": "Initiating Parties a customer has",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/InitiatingParty"
+            },
+            "minItems":1
+        }
+    },
+    "required": [
+        "CustomerId",
+        "CustomerName",
+        "InitiatingParties"
+    ],
+    "definitions": {
+        "InitiatingParty": {
+            "title": "Initating Party",
+            "description": "An initating party who can initate a payment",
+            "properties": {
+                "Id": {
+                    "description": "unique identifier of an initiating party",
+                    "type": "string"
+                },
+                "Name": {
+                    "description": "name of the initiating party",
+                    "type": "string"
+                },
+                "RegisteredAccounts": {
+                    "description": "Accounts that the initiating party can use",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AccountReference"
+                    },
+                    "minItems":1
+                }
+            },
+            "required": [
+                "Id",
+                "Name",
+                "RegisteredAccounts"
+            ]
+        },
+        "AccountReference" :{
+            "title": "AccountReference",
+            "description": "A reference to an account",
+            "properties": {
+                "IBAN": {
+                    "description": "IBAN",
+                    "type": "string"
+                },
+                "BIC": {
+                    "description": "BIC",
+                    "type": "string"
+                },
+                "Name": {
+                    "description": "Name on the account",
+                    "type":"string"
+                }
+            },
+            "required": [
+                "IBAN",
+                "BIC",
+                "Name"
+            ]
+        }
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "https://github.com/alanwade2001/spa/customermodel.schema.json",
+    "title": "Customer Model",
+    "description": "Json Model of the Customer",
+    "type": "object",
+    "properties": {
+        "_id": {
+            "type": "string",
+            "description": "unique identifier"
+        },
+        "Name": {
+            "type": "string",
+            "description": "Name of the customer"
+        },
+        "Active": {
+            "type": "boolean",
+            "description": "the customer is active"
+        },
+        "InitiatingParties": {
+            "type": "array",
+            "description": "the initiating parties acting on behalf of customer",
+            "items": {
+                "$ref": "#/definitions/InitiatingParty"
+            },
+            "minItems":1
+
+        },
+        "Users":{
+            "type":"array",
+            "items": {
+                "$ref": "#/definitions/UserReference"
+            },
+            "minItems":1
+        }
+    },
+    "required": [
+        "_id",
+        "Name",
+        "Active"
+    ],
+    "definitions": {
+        "UserReference": {
+            "type": "object",
+            "properties": {
+                "Email":{
+                    "type":"string"
+                }
+            }
+        },
+        "AccountReference": {
+            "type": "object",
+            "properties": {
+                "IBAN":{
+                    "type":"string"
+                },
+                "BIC":{
+                    "type":"string"
+                },
+                "Name":{
+                    "type":"string"
+                }
+            }
+        },
+        "InitiatingParty": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "RegisteredAccounts":{
+                    "type":"array",
+                    "items": {
+                        "$ref": "#/definitions/AccountReference"
+                    }
+                }
+            }
+        }
+    }
+}

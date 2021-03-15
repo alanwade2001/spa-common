@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "https://github.com/alanwade2001/spa/submissionmodel.schema.json",
+    "type":"object",
+    "properties": {
+        "_id":{
+            "type":"string"
+        },
+        "GroupHeader":{
+            "$ref": "#/definitions/GroupHeaderReference"
+        },
+        "SubmittedBy":{
+            "$ref": "#/definitions/UserReference"
+        },
+        "SubmittedAt":{
+            "type":"string"
+        }
+    },
+    "definitions": {
+        "GroupHeaderReference":{
+            "type":"object",
+            "properties": {
+                "MessageId":{
+                    "type":"string"
+                },
+                "CreationDateTime":{
+                    "type":"string"
+                },
+                "NumberOfTransactions":{
+                    "type":"number"
+                },
+                "ControlSum":{
+                    "type":"number"
+                },
+                "InitiatingPartyId":{
+                    "type":"string"
+                }
+            }            
+        },
+        "CustomerReference":{
+            "type":"object",
+            "properties": {
+                "Id":{
+                    "type":"string"
+                },
+                "Name":{
+                    "type":"string"
+                }
+            }
+        },
+        "UserReference":{
+            "type":"object",
+            "properties": {
+                "Email":{
+                    "type":"string"
+                }
+            }
+        }
+    }
+}

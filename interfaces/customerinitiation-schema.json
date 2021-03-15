@@ -1,0 +1,107 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "https://github.com/alanwade2001/spa/customerinitiation.schema.json",
+    "title": "Customer Initiation",
+    "description": "SPA Customer Initiation",
+    "type":"object",
+    "properties": {
+        "customerInitiationId":{
+            "description": "unique identifier for customer initiation",
+            "type":"string"
+        }
+    },
+    "definitions": {
+        "InitiationReference":{
+            "description": "Initiation Reference",
+            "type":"object",
+            "properties": {
+                "GroupHeader" :{
+                    "description": "Group Header Reference",
+                    "$ref": "#/definitions/GroupHeaderReference"
+                },
+                "PaymentInstructions":{
+                    "description": "Payment Instruction arrays",
+                    "type":"array",
+                    "items": {
+                        "$ref": "#/definitions/PaymentInstructionReference"
+                    },
+                    "minItems":1
+                }
+            },
+            "required": [
+                "GroupHeader",
+                "PaymentInstructions"
+            ]
+        },
+        "GroupHeaderReference":{
+            "description": "GroupHeader Reference of the initiation",
+            "type":"object",
+            "properties": {
+                "MessageId":{
+                    "type":"string"
+                },
+                "CreationDateTime":{
+                    "type":"string"
+                },
+                "NumberOfTransactions":{
+                    "type":"number"
+                },
+                "ControlSum":{
+                    "type":"number"
+                },
+                "InitiatingPartyId":{
+                    "type":"string"
+                }
+            },
+            "required": [
+                "MessageId",
+                "CreationDateTime",
+                "NumberOfTransactions",
+                "ControlSum",
+                "InitiatingPartyId"
+            ]
+        },
+        "PaymentInstructionReference":{
+            "description": "PaymentInstruction Reference of the initiation",
+            "type":"object",
+            "properties": {
+                "PaymentId":{
+                    "type":"string"
+                },
+                "RequestedExecutionDate":{
+                    "type":"string"
+                },
+                "NumberOfTransactions":{
+                    "type":"number"
+                },
+                "ControlSum":{
+                    "type":"number"
+                }
+            },
+            "required": [
+                "PaymentId",
+                "RequestedExecutionDate",
+                "NumberOfTransactions",
+                "ControlSum"
+            ]
+        },
+        "CustomerReference":{
+            "description": "CustomerReference",
+            "type":"object",
+            "properties": {
+                "CustomerId": {
+                    "description": "The unique identifier for a customer",
+                    "type": "string"
+                },
+                "CustomerName": {
+                    "description": "The name of the customer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "CustomerId",
+                "CustomerName"
+            ]
+        }
+    }
+}

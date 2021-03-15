@@ -1,0 +1,97 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "https://github.com/alanwade2001/spa/initiationmodel.schema.json",
+    "type":"object",
+    "properties": {
+        "_id":{
+            "type":"string"
+        },
+        "GroupHeader":{
+            "$ref": "#/definitions/GroupHeaderReference"
+        },
+        "PaymentInstructions":{
+            "type":"array",
+            "items": {
+                "$ref": "#/definitions/PaymentInstructionReference"
+            }
+        },
+        "Customer":{
+            "$ref": "#/definitions/CustomerReference"
+        }
+    },
+    "definitions": {
+        "GroupHeaderReference":{
+            "description": "GroupHeader Reference of the initiation",
+            "type":"object",
+            "properties": {
+                "MessageId":{
+                    "type":"string"
+                },
+                "CreationDateTime":{
+                    "type":"string"
+                },
+                "NumberOfTransactions":{
+                    "type":"number"
+                },
+                "ControlSum":{
+                    "type":"number"
+                },
+                "InitiatingPartyId":{
+                    "type":"string"
+                }
+            }
+        },
+        "PaymentInstructionReference":{
+            "description": "PaymentInstruction Reference of the initiation",
+            "type":"object",
+            "properties": {
+                "PaymentId":{
+                    "type":"string"
+                },
+                "RequestedExecutionDate":{
+                    "type":"string"
+                },
+                "NumberOfTransactions":{
+                    "type":"number"
+                },
+                "ControlSum":{
+                    "type":"number"
+                }
+            }
+        },
+        "CustomerReference":{
+            "description": "CustomerReference",
+            "type":"object",
+            "properties": {
+                "CustomerId": {
+                    "description": "The unique identifier for a customer",
+                    "type": "string"
+                },
+                "CustomerName": {
+                    "description": "The name of the customer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "CustomerId",
+                "CustomerName"
+            ]
+        },
+        "SubmissionReference":{
+            "description": "CustomerReference",
+            "type":"object",
+            "properties": {
+                "SubmissionId": {
+                    "description": "The unique identifier for a customer",
+                    "type": "string"
+                },
+                "SubmittedBy": {
+                    "type": "string"
+                },
+                "SubmittedAt":{
+                    "type":"string"
+                }
+            }
+        }
+    }
+}

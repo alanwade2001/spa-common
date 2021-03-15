@@ -1,0 +1,104 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "https://github.com/alanwade2001/spa/customersubmission.schema.json",
+    "title": "Customer Submission",
+    "description": "SPA Customer Submission",
+    "properties": {
+        "Submission": {
+            "description": "Submission",
+            "$ref": "#/definitions/Submission"
+        },
+        "Customer": {
+            "description": "Customer",
+            "$ref": "#/definitions/CustomerReference"
+        },
+        "Result": {
+            "description": "Validation Result",
+            "$ref": "#/definitions/ValidationResult"
+        }
+    },
+    "required": [
+        "Submission",
+        "Customer",
+        "Result"
+    ],
+    "definitions": {
+        "Submission": {
+            "SubmittedAt": {
+                "description": "date and time it was submitted",
+                "type": "string"
+            },
+            "SubmittedBy": {
+                "description": "the user who submitted it",
+                "type": "string"
+            }
+        },
+        "CustomerReference": {
+            "description": "CustomerReference",
+            "type": "object",
+            "properties": {
+                "CustomerId": {
+                    "description": "The unique identifier for a customer",
+                    "type": "string"
+                },
+                "CustomerName": {
+                    "description": "The name of the customer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "CustomerId",
+                "CustomerName"
+            ]
+        },
+        "ValidationResult": {
+            "description": "Validation Result",
+            "type": "object",
+            "properties": {
+                "Success": {
+                    "description": "The submission is a success",
+                    "type": "boolean"
+                },
+                "Failures": {
+                    "description": "validation failures",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ValidationFailure"
+                    }
+                }
+            },
+            "required": [
+                "Success",
+                "Failures"
+            ]
+        },
+        "ValidationFailure": {
+            "description": "Validation Failure",
+            "type": "object",
+            "properties": {
+                "Description": {
+                    "description": "description of the failure",
+                    "type": "string"
+                },
+                "Location": {
+                    "description": "location of the failure",
+                    "type": "string"
+                },
+                "Expected": {
+                    "description": "expected value",
+                    "type": "string"
+                },
+                "Actual": {
+                    "description": "actual value",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Description",
+                "Location",
+                "Expected",
+                "Actual"
+            ]
+        }
+    }
+}
