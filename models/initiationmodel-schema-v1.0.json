@@ -2,6 +2,7 @@
     "$schema": "http://json-schema.org/schema",
     "$id": "https://github.com/alanwade2001/spa/initiationmodel.schema.json",
     "type":"object",
+    "title": "InitiationModel",
     "properties": {
         "_id":{
             "type":"string"
@@ -56,6 +57,9 @@
                 },
                 "ControlSum":{
                     "type":"number"
+                },
+                "DebtorAccount":{
+                    "$ref": "#/definitions/AccountReference"
                 }
             }
         },
@@ -89,6 +93,22 @@
                     "type": "string"
                 },
                 "SubmittedAt":{
+                    "type":"string"
+                }
+            }
+        },
+        "AccountReference":{
+            "description": "AccountReference",
+            "type":"object",
+            "properties": {
+                "IBAN": {
+                    "description": "The unique identifier for the account",
+                    "type": "string"
+                },
+                "BIC": {
+                    "type": "string"
+                },
+                "Name":{
                     "type":"string"
                 }
             }

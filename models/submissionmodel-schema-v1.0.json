@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema",
     "$id": "https://github.com/alanwade2001/spa/submissionmodel.schema.json",
+    "title": "SubmissionModel",
     "type":"object",
     "properties": {
         "_id":{
@@ -8,6 +9,9 @@
         },
         "GroupHeader":{
             "$ref": "#/definitions/GroupHeaderReference"
+        },
+        "Customer":{
+            "$ref": "#/definitions/CustomerReference"
         },
         "SubmittedBy":{
             "$ref": "#/definitions/UserReference"
