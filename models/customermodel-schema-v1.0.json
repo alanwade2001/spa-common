@@ -35,7 +35,6 @@
         }
     },
     "required": [
-        "_id",
         "Name",
         "Active"
     ],
