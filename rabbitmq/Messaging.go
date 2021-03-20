@@ -53,6 +53,23 @@ func (m *Messaging) Consume() (<-chan amqp.Delivery, error) {
 	)
 }
 
+func (m *Messaging) Publish(contentType string, data []byte) error {
+	if err := m.ch.Publish(
+		"",
+		m.q.Name,
+		false,
+		false,
+		amqp.Publishing{
+			ContentType: contentType,
+			Body:        data,
+		},
+	); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *Messaging) Disconnect() error {
 	m.ch.Close()
 	m.conn.Close()
