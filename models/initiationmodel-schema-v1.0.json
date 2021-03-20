@@ -20,6 +20,7 @@
             "$ref": "#/definitions/CustomerReference"
         }
     },
+    "required": ["GroupHeader", "PaymentInstructions, Customer"],
     "definitions": {
         "GroupHeaderReference":{
             "description": "GroupHeader Reference of the initiation",
@@ -75,11 +76,7 @@
                     "description": "The name of the customer",
                     "type": "string"
                 }
-            },
-            "required": [
-                "CustomerId",
-                "CustomerName"
-            ]
+            }            
         },
         "SubmissionReference":{
             "description": "CustomerReference",
