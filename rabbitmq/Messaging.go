@@ -13,9 +13,9 @@ type Messaging struct {
 	q    amqp.Queue
 }
 
-// func NewMessaging(url string, queueName string) types.MessagingAPI {
-// 	return &Messaging{url: url, queueName: queueName}
-// }
+func NewMessaging(url string, queueName string) *Messaging {
+	return &Messaging{Url: url, QueueName: queueName}
+}
 
 func (m *Messaging) Connect() (err error) {
 	if m.conn, err = amqp.Dial(m.Url); err != nil {
