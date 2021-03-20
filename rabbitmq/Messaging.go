@@ -5,8 +5,8 @@ import (
 )
 
 type Messaging struct {
-	url       string
-	queueName string
+	Url       string
+	QueueName string
 
 	conn *amqp.Connection
 	ch   *amqp.Channel
@@ -18,7 +18,7 @@ type Messaging struct {
 // }
 
 func (m *Messaging) Connect() (err error) {
-	if m.conn, err = amqp.Dial(m.url); err != nil {
+	if m.conn, err = amqp.Dial(m.Url); err != nil {
 		return err
 	}
 
@@ -27,7 +27,7 @@ func (m *Messaging) Connect() (err error) {
 	}
 
 	if m.q, err = m.ch.QueueDeclare(
-		m.queueName, // name
+		m.QueueName, // name
 		false,       // durable
 		false,       // delete when unused
 		false,       // exclusive
