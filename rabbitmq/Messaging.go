@@ -70,7 +70,7 @@ func (m *Messaging) retry(attempts int, sleep time.Duration, f func() error) (er
 			break
 		}
 
-		time.Sleep(sleep)
+		time.Sleep(sleep * time.Second)
 
 		klog.InfoS("retrying after error:[%s]", err.Error())
 	}
