@@ -1,10 +1,12 @@
 package rabbitmq
 
 import (
+	"fmt"
 	"net"
 	"time"
 
 	"github.com/streadway/amqp"
+	"k8s.io/klog/v2"
 )
 
 type Messaging struct {
@@ -22,11 +24,7 @@ func NewMessaging(url string, queueName string, timeout time.Duration) *Messagin
 }
 
 func (m *Messaging) Connect() (err error) {
-	if m.conn, err = amqp.DialConfig(m.Url, amqp.Config{
-		Dial: func(network, addr string) (net.Conn, error) {
-			return net.DialTimeout(network, addr, m.Timeout*time.Second)
-		},
-	}); err != nil {
+	if err = m.retry(3, m.Timeout, m.dial); err != nil {
 		return err
 	}
 
@@ -47,6 +45,36 @@ func (m *Messaging) Connect() (err error) {
 	}
 
 	return nil
+}
+
+func (m *Messaging) dial() (err error) {
+	if m.conn, err = amqp.DialConfig(m.Url, amqp.Config{
+		Dial: func(network, addr string) (net.Conn, error) {
+			return net.DialTimeout(network, addr, m.Timeout*time.Second)
+		},
+	}); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Messaging) retry(attempts int, sleep time.Duration, f func() error) (err error) {
+	for i := 0; ; i++ {
+		err = f()
+		if err == nil {
+			return
+		}
+
+		if i >= (attempts - 1) {
+			break
+		}
+
+		time.Sleep(sleep)
+
+		klog.InfoS("retrying after error:[%s]", err.Error())
+	}
+	return fmt.Errorf("after %d attempts, last error: %s", attempts, err)
 }
 
 func (m *Messaging) Consume() (<-chan amqp.Delivery, error) {
