@@ -1,24 +1,32 @@
 package rabbitmq
 
 import (
+	"net"
+	"time"
+
 	"github.com/streadway/amqp"
 )
 
 type Messaging struct {
 	Url       string
 	QueueName string
+	Timeout   time.Duration
 
 	conn *amqp.Connection
 	ch   *amqp.Channel
 	q    amqp.Queue
 }
 
-func NewMessaging(url string, queueName string) *Messaging {
-	return &Messaging{Url: url, QueueName: queueName}
+func NewMessaging(url string, queueName string, timeout time.Duration) *Messaging {
+	return &Messaging{Url: url, QueueName: queueName, Timeout: timeout}
 }
 
 func (m *Messaging) Connect() (err error) {
-	if m.conn, err = amqp.Dial(m.Url); err != nil {
+	if m.conn, err = amqp.DialConfig(m.Url, amqp.Config{
+		Dial: func(network, addr string) (net.Conn, error) {
+			return net.DialTimeout(network, addr, m.Timeout*time.Second)
+		},
+	}); err != nil {
 		return err
 	}
 
